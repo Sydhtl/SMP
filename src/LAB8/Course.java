@@ -25,14 +25,13 @@ public static Lecturer[]lecturerRegisterCourse=new Lecturer[10];
 	 * @param group
 	 */
 	
-	public Course(String code, String name, int credit, int group, String lectureName, String lectureId,String lectureTime, String lectureHallName, int lectureHallCapacity) {
+	public Course(String code, String name, int credit, int group, String lectureName, String lectureId) {
 		this.code = code;
 		this.name = name;
 		this.credit = credit;
 		this.group = group;
 		this.lecturer = new Lecturer(lectureName,lectureId);
-		this.lectureTime=lectureTime;
-		this.lectureHall = new LectureHall(lectureHallName,lectureHallCapacity);
+		
 	}
 	/**
 	 * The constructor to create a course

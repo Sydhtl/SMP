@@ -11,15 +11,17 @@ public class Lecturer extends Person implements Comparable<Lecturer>{
 //attributes
 	private String staffId;
 	private  String password;
+	public String phone;
 	Course[]courseLecturers=new Course[10];
 	int index;
 	
 	
 	
 	//constructor for lecturer
-	public Lecturer(String name,String staffId) {
+	public Lecturer(String name,String staffId, String phone) {
 		super(name);
 		this.staffId=staffId;
+		this.phone=phone;
 		
 	}
 	//constructor for lecturer
@@ -28,14 +30,15 @@ public class Lecturer extends Person implements Comparable<Lecturer>{
 		this.staffId=staffId;
 	}
 	//constructor for lecturer
-	public Lecturer(String name,String staffId,String password) {
+	public Lecturer(String name,String staffId,String password, String phone) {
 		super(name);
 		this.staffId=staffId;
 		this.password=password;
+		this.phone=phone;
 	}
 	//this is how the constructor for this class will be printed out
 	public String toString() {
-		return(name+"\t"+staffId+"\t"+dob);
+		return(name+"\t"+staffId+"\t"+phone);
 	}
 	//constructor for getStaffId
 	public String getStaffId() {

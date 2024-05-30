@@ -1,8 +1,6 @@
 package LAB8;
 
-
-
-	import java.util.Scanner;
+import java.util.Scanner;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 /**
  * 
- * @author saidahtul
+ * @author saidahtul 
  *
  */
 //the class is SMP
@@ -599,65 +597,70 @@ public static void deleteLecturer() {
 		 * @throws Exception
 		 */
 		public static void createStudent() throws Exception {
-			 String matric = null;
-		     String name = null;
-		     String phone = null;
-		     String program = null;
-		     Date dob = null;
+			 String matric = "";
+		     String name = "";
+		     String phone = "";
+		     String program = "";
+		    
 			
-		        while (matric == null || matric.trim().isEmpty()) {
-		            System.out.print("MATRIC: ");
-		            matric = scanner.nextLine().trim();
-		            if (matric.isEmpty()) {
-		                System.out.println("MATRIC cannot be empty. Please enter a valid MATRIC.");
-		                printAdminMenu();
-		            }
-		        }
-			
-		        while(name==null|| name.trim().isEmpty()){
-			System.out.print("NAME: ");
-			 name = scanner.nextLine().trim();
-			 if(name.isEmpty()) {
-				 System.out.println("Name cannot be empty. Please enter a valid NAME");
-				 printAdminMenu();
-			 }
-			 
-		        }
-		        while (phone == null || phone.trim().isEmpty()) {
-		            System.out.print("PHONE: ");
-		            phone = scanner.nextLine().trim();
-		            if (phone.isEmpty()) {
-		                System.out.println("PHONE cannot be empty. Please enter a valid PHONE.");
-		                printAdminMenu();
-		            }
-		        }
-		        while (program == null || program.trim().isEmpty()) {
-		            System.out.print("PROGRAM: ");
-		            program = scanner.nextLine().trim();
-		            if (program.isEmpty()) {
-		                System.out.println("PROGRAM cannot be empty. Please enter a valid PROGRAM.");
-		                printAdminMenu();
-		            }
-		        }
 		        
-			try {
-			System.out.print("DOB: [DD/MM/YYYY]");
-			String dateFormat = "dd/MM/yyyy";
-			 dob = (new SimpleDateFormat(dateFormat).parse(scanner.nextLine()));
-
-			// create student object then add to the students array
-			Student student = new Student(name, matric, phone, program, dob);
-			// add the new student to the database
-			studentDB.addStudent(student);
+		            System.out.print("MATRIC: ");
+		            
+		            matric = scanner.nextLine();
+		            
+		            if ( matric.length()==6) {
+		           
+		                System.out.println("MATRIC:" + matric +" is valid");
+		                
+		            
+		       		} else {
+		        		System.out.println("please enter the matric that consist 6 numbers");
+		        		printAdminMenu();
+		        	}
+		          
 			
-			}
-		
-			catch(Exception e) {
-				System.out.println("Date of birth must be integer");
-				printAdminMenu();
-			}
+		       
+					System.out.print("NAME: ");
+			 		name = scanner.nextLine();
+			 		
+			 		if (name.length() >= 1 && name.length() <= 255) {
+               			System.out.println("Hello, " + name);
+               			
+            		} else {
+               			System.out.println("Name must be between 1 and 255 characters long. Please enter a valid NAME.");
+               			printAdminMenu();
+           			}
+       		 
+		      
+		            System.out.print("PHONE: ");
+		            phone = scanner.nextLine();
+		            if(phone.length()<=20 && phone.length()>=5) {
+		                System.out.println("PHONE: " + phone);
+		               
+		            }
+		            else {
+		            	System.out.println("Enter Valid Phone Number!"); 
+		            	printAdminMenu();
+		            }
+		        
+		       
+		            System.out.print("PROGRAM: ");
+		            program = scanner.nextLine();
+		            if (program.length() >= 1 && program.length() <= 255) {
+		                System.out.println("Program : " + program );
+		                
+		            } else {
+		            	System.out.println("Enter Valid PROGRAM");
+		            	printAdminMenu();
+		            	}
+		            
+		Student student = new Student(name, matric, phone, program);
+		// add the new student to the database
+		studentDB.addStudent(student);
 		
 		}
+		        
+			
 
 		/**
 		 * Print all the Student objects in the student list
@@ -688,115 +691,92 @@ public static void deleteLecturer() {
 		 * @throws Exception 
 		 */
 		private static void addCourse() throws Exception  {
-			 String code = null, name = null, lecturerName = null, lectureId = null, lecturetime = null, hallName = null;
-		        int credit = 0, group = 0, hallCapacity = 0;
+			 String courseCode, courseName, lecturerName, lectureId = " ";
+			 int codePrefix, codeNumber, credit, group = 0;
 		        
-		        while (code == null || code.trim().isEmpty()) {
-		            System.out.print("COURSE CODE: ");
-		            code = scanner.nextLine().trim();
-		            if (code.isEmpty()) {
-		                System.out.println("COURSE CODE cannot be empty. Please enter a valid COURSE CODE.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
-		        while (name == null || name.trim().isEmpty()) {
-		            System.out.print("COURSE NAME: ");
-		            name = scanner.nextLine().trim();
-		            if (name.isEmpty()) {
-		                System.out.println("COURSE NAME cannot be empty. Please enter a valid COURSE NAME.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }		
-		        boolean validCredit = false;
-		        while (!validCredit) {
-		            try {
-		                System.out.print("CREDIT: ");
-		                credit = Integer.parseInt(scanner.nextLine().trim());
-		                validCredit = true;
-		            } catch (NumberFormatException e) {
-		                System.out.println("Invalid input for CREDIT. Please enter a valid integer.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
+		     System.out.print("COURSE CODE: ");
+	         codePrefix = scanner.nextInt();
+
+	            if (codePrefix==3) {
+	                System.out.println("Valid course prefix");
+	                if(codeNumber==4) {
+	                	System.out.println( "Valid course number");
+	                }
+	                else {
+	                	System.out.println("Invalid course number");
+	                	printAdminMenu();
+	                }
+	            } else {
+	                System.out.println("Invalid course code");
+	                printAdminMenu();
+	            }
+	            
+		    System.out.print("COURSE NAME: ");
+		 	courseName = scanner.nextLine();
+		 		
+		 		if (courseName.length() >= 1 && courseName.length() <= 255) {
+           			System.out.println("Course name" + courseName);
+           			
+        		} else {
+           			System.out.println("Name must be between 1 and 255 characters long. Please enter a valid NAME.");
+           			printAdminMenu();
+           		 }
+		 		
+		         System.out.print("CREDIT: ");
+		                group = scanner.nextInt();
+
+		            	if (group >= 1 && group <=6) {
+		           			System.out.println("Credit : " + credit);
+		           			
+		        		} else {
+		           			System.out.println("Credit exists between 1-6. Please enter a valid CREDIT.");
+		           			printAdminMenu();
+		           		 }
+		               
 
 		        // Get and validate input for GROUP
-		        boolean validGroup = false;
-		        while (!validGroup) {
-		            try {
+		      
 		                System.out.print("GROUP: ");
-		                group = Integer.parseInt(scanner.nextLine().trim());
-		                validGroup = true;
-		            } catch (NumberFormatException e) {
-		                System.out.println("Invalid input for GROUP. Please enter a valid integer.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
+		                group = scanner.nextInt();
 
-		        // Get and validate input for LECTURER NAME
-		        while (lecturerName == null || lecturerName.trim().isEmpty()) {
-		            System.out.print("LECTURER: ");
-		            lecturerName = scanner.nextLine().trim();
-		            if (lecturerName.isEmpty()) {
-		                System.out.println("LECTURER NAME cannot be empty. Please enter a valid LECTURER NAME.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
+		            	if (group >=1 && group <= 50) {
+		           			System.out.println("Group : " + group);
+		           			
+		        		} else {
+		           			System.out.println("Group exists between 1-50. Please enter a valid GROUP.");
+		           			printAdminMenu();
+		           		 }
+		               
+
+		        System.out.print("LECTURER NAME: ");
+		 		lecturerName = scanner.nextLine();
+		 		
+		 		if (lecturerName.length() >= 1 && lecturerName.length() <= 255) {
+           			System.out.println("Hello" + lecturerName);
+           			
+        		} else {
+           			System.out.println("Name must be between 1 and 255 characters long. Please enter a valid NAME.");
+           			printAdminMenu();
+           		 }
 
 		        // Get and validate input for LECTURE ID
-		        while (lectureId == null || lectureId.trim().isEmpty()) {
-		            System.out.print("LECTURE ID: ");
-		            lectureId = scanner.nextLine().trim();
-		            if (lectureId.isEmpty()) {
-		                System.out.println("LECTURE ID cannot be empty. Please enter a valid LECTURE ID.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
+		 		
+		             System.out.print("LECTURER ID: ");
+		             lecturerId = scanner.nextLine();
 
-		        // Get and validate input for LECTURE TIME
-		        while (lecturetime == null || lecturetime.trim().isEmpty()) {
-		            System.out.print("LECTURE TIME: ");
-		            lecturetime = scanner.nextLine().trim();
-		            if (lecturetime.isEmpty()) {
-		                System.out.println("LECTURE TIME cannot be empty. Please enter a valid LECTURE TIME.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
+		             if (lecturerId.length() == 6) {
+		                 System.out.println("Valid lecturer id");
+		                 printAdminMenu();// Reset matric to ensure the loop continues
+		             } else {
+		                 System.out.println("Invalid lecturer id");
+		             }
+		    
 
-		        // Display available lecture halls and get valid input for HALL NAME
-		        while (hallName == null || hallName.trim().isEmpty()) {
-		            System.out.println("List of lecture halls available:");
-		            lectureHallDB.printLectureHall();
-		            System.out.print("Enter the lecture hall: ");
-		            hallName = scanner.nextLine().trim();
-		            if (lectureHallDB.findLectureHall(hallName) == null) {
-		                System.out.println("Invalid lecture hall. Please choose from the available list.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
 
-		        // Get and validate input for HALL CAPACITY
-		        boolean validHallCapacity = false;
-		        while (!validHallCapacity) {
-		            try {
-		                System.out.print("Enter the capacity: ");
-		                hallCapacity = Integer.parseInt(scanner.nextLine().trim());
-		                validHallCapacity = true;
-		            } catch (NumberFormatException e) {
-		                System.out.println("Invalid input for capacity. Please enter a valid integer.");
-		                printAdminMenu();
-		                return;
-		            }
-		        }
+
+		  
 			
-			Course course = new Course(code, name, credit, group, lecturerName, lectureId,lecturetime,hallName, hallCapacity);
+			Course course = new Course(codePrefix, codeNumber, lecturerName, credit, group, lectureId);
 			
 			courseDB.addCourse(course);
 			}

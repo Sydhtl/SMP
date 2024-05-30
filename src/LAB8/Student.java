@@ -33,12 +33,12 @@ public class Student extends Person implements Comparable <Student>{
 	 * @param program
 	 * @param dob
 	 */
-	public Student(String name,String matric, String phone, String program, Date dob) {
+	public Student(String name,String matric, String phone, String program) {
 		super(name);
 		this.matric =  matric;
 		this.phone = phone;
 		this.program = program;
-		this.dob = dob;
+		
 	}
 	public Student(String name, String matric, String password) {
 		super(name);

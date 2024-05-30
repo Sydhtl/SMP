@@ -1,0 +1,2 @@
+csc	CSC(12) Group1
+2	2(2) Group2
