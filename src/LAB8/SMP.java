@@ -543,14 +543,33 @@ import java.util.Date;
 		}
 
 		public static void createLecturer() throws Exception {
+			
+			String name=null;
+			String staffId=null;
+			String dateFormat=null;
+			
+			while(name==null||name.trim().isEmpty()) {
 			System.out.print("Enter lecturer name:");
-			String name=scanner.nextLine();
-			System.out.print("Enter lecturer id:");
-			String staffId=scanner.nextLine();
+			 name=scanner.nextLine();
+			 if(name.isEmpty()) {
+				 System.out.println("Name cannot be empty. Please enter a valid NAME");
+				 printAdminMenu();
+			 }
+			}
+			 
+			while(staffId==null||staffId.trim().isEmpty()) {
+				System.out.print("Enter lecturer Id ");
+				 staffId=scanner.nextLine();
+				 if(staffId.isEmpty()) {
+					 System.out.println("StaffId cannot be empty. Please enter a valid STAFF ID");
+					 printAdminMenu();
+				 }
+				}
+			
 			try {
 			System.out.print("Enter lecturer dob:");
 			System.out.print("DOB: [DD/MM/YYYY]");
-			String dateFormat = "dd/MM/yyyy";
+			 dateFormat = "dd/MM/yyyy";
 			Date dob=(new SimpleDateFormat(dateFormat).parse(scanner.nextLine()));
 			Lecturer lecturer=new Lecturer(name,dob,staffId);
 			lecturerDB.addLecturer(lecturer);
@@ -580,30 +599,64 @@ public static void deleteLecturer() {
 		 * @throws Exception
 		 */
 		public static void createStudent() throws Exception {
-			System.out.print("MATRIC: ");
-			String matric = scanner.nextLine();
+			 String matric = null;
+		     String name = null;
+		     String phone = null;
+		     String program = null;
+		     Date dob = null;
+			
+		        while (matric == null || matric.trim().isEmpty()) {
+		            System.out.print("MATRIC: ");
+		            matric = scanner.nextLine().trim();
+		            if (matric.isEmpty()) {
+		                System.out.println("MATRIC cannot be empty. Please enter a valid MATRIC.");
+		                printAdminMenu();
+		            }
+		        }
+			
+		        while(name==null|| name.trim().isEmpty()){
 			System.out.print("NAME: ");
-			String name = scanner.nextLine();
-			System.out.print("PHONE: ");
-			String phone = scanner.nextLine();
-			System.out.print("PROGRAM: ");
-			String program = scanner.nextLine();
-
+			 name = scanner.nextLine().trim();
+			 if(name.isEmpty()) {
+				 System.out.println("Name cannot be empty. Please enter a valid NAME");
+				 printAdminMenu();
+			 }
+			 
+		        }
+		        while (phone == null || phone.trim().isEmpty()) {
+		            System.out.print("PHONE: ");
+		            phone = scanner.nextLine().trim();
+		            if (phone.isEmpty()) {
+		                System.out.println("PHONE cannot be empty. Please enter a valid PHONE.");
+		                printAdminMenu();
+		            }
+		        }
+		        while (program == null || program.trim().isEmpty()) {
+		            System.out.print("PROGRAM: ");
+		            program = scanner.nextLine().trim();
+		            if (program.isEmpty()) {
+		                System.out.println("PROGRAM cannot be empty. Please enter a valid PROGRAM.");
+		                printAdminMenu();
+		            }
+		        }
+		        
 			try {
 			System.out.print("DOB: [DD/MM/YYYY]");
 			String dateFormat = "dd/MM/yyyy";
-			Date dob = (new SimpleDateFormat(dateFormat).parse(scanner.nextLine()));
+			 dob = (new SimpleDateFormat(dateFormat).parse(scanner.nextLine()));
 
 			// create student object then add to the students array
 			Student student = new Student(name, matric, phone, program, dob);
 			// add the new student to the database
 			studentDB.addStudent(student);
+			
 			}
 		
 			catch(Exception e) {
 				System.out.println("Date of birth must be integer");
 				printAdminMenu();
 			}
+		
 		}
 
 		/**
@@ -635,48 +688,121 @@ public static void deleteLecturer() {
 		 * @throws Exception 
 		 */
 		private static void addCourse() throws Exception  {
-			
-			System.out.print("COURSE CODE: ");
-			String code = scanner.nextLine();
-			System.out.print("COURSE NAME: ");
-			String name = scanner.nextLine();
-			try {
-			System.out.print("CREDIT: ");
-			int credit = scanner.nextInt();
-			System.out.print("GROUP: ");
-			int group = scanner.nextInt();
-			scanner.nextLine();
-			System.out.print("LECTURER: ");
-			String lecturerName = scanner.nextLine();
-			System.out.print("LECTURE ID:");
-			String lectureId=scanner.nextLine();
-			System.out.print("LECTURE TIME: ");
-			String lecturetime = scanner.nextLine();
-			System.out.println("list of lectureHalls available:");
-			lectureHallDB.printLectureHall();
-			System.out.print("Enter the lecture hall:");
-			String hallName= scanner.nextLine();
-			if(hallName.equals(lectureHallDB.findLectureHall(hallName))) {
-			System.out.print("Enter the capacity:");
-			int hallCapacity=scanner.nextInt();
-		
-			
-			scanner.nextLine();
+			 String code = null, name = null, lecturerName = null, lectureId = null, lecturetime = null, hallName = null;
+		        int credit = 0, group = 0, hallCapacity = 0;
+		        
+		        while (code == null || code.trim().isEmpty()) {
+		            System.out.print("COURSE CODE: ");
+		            code = scanner.nextLine().trim();
+		            if (code.isEmpty()) {
+		                System.out.println("COURSE CODE cannot be empty. Please enter a valid COURSE CODE.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
+		        while (name == null || name.trim().isEmpty()) {
+		            System.out.print("COURSE NAME: ");
+		            name = scanner.nextLine().trim();
+		            if (name.isEmpty()) {
+		                System.out.println("COURSE NAME cannot be empty. Please enter a valid COURSE NAME.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }		
+		        boolean validCredit = false;
+		        while (!validCredit) {
+		            try {
+		                System.out.print("CREDIT: ");
+		                credit = Integer.parseInt(scanner.nextLine().trim());
+		                validCredit = true;
+		            } catch (NumberFormatException e) {
+		                System.out.println("Invalid input for CREDIT. Please enter a valid integer.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
+
+		        // Get and validate input for GROUP
+		        boolean validGroup = false;
+		        while (!validGroup) {
+		            try {
+		                System.out.print("GROUP: ");
+		                group = Integer.parseInt(scanner.nextLine().trim());
+		                validGroup = true;
+		            } catch (NumberFormatException e) {
+		                System.out.println("Invalid input for GROUP. Please enter a valid integer.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
+
+		        // Get and validate input for LECTURER NAME
+		        while (lecturerName == null || lecturerName.trim().isEmpty()) {
+		            System.out.print("LECTURER: ");
+		            lecturerName = scanner.nextLine().trim();
+		            if (lecturerName.isEmpty()) {
+		                System.out.println("LECTURER NAME cannot be empty. Please enter a valid LECTURER NAME.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
+
+		        // Get and validate input for LECTURE ID
+		        while (lectureId == null || lectureId.trim().isEmpty()) {
+		            System.out.print("LECTURE ID: ");
+		            lectureId = scanner.nextLine().trim();
+		            if (lectureId.isEmpty()) {
+		                System.out.println("LECTURE ID cannot be empty. Please enter a valid LECTURE ID.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
+
+		        // Get and validate input for LECTURE TIME
+		        while (lecturetime == null || lecturetime.trim().isEmpty()) {
+		            System.out.print("LECTURE TIME: ");
+		            lecturetime = scanner.nextLine().trim();
+		            if (lecturetime.isEmpty()) {
+		                System.out.println("LECTURE TIME cannot be empty. Please enter a valid LECTURE TIME.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
+
+		        // Display available lecture halls and get valid input for HALL NAME
+		        while (hallName == null || hallName.trim().isEmpty()) {
+		            System.out.println("List of lecture halls available:");
+		            lectureHallDB.printLectureHall();
+		            System.out.print("Enter the lecture hall: ");
+		            hallName = scanner.nextLine().trim();
+		            if (lectureHallDB.findLectureHall(hallName) == null) {
+		                System.out.println("Invalid lecture hall. Please choose from the available list.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
+
+		        // Get and validate input for HALL CAPACITY
+		        boolean validHallCapacity = false;
+		        while (!validHallCapacity) {
+		            try {
+		                System.out.print("Enter the capacity: ");
+		                hallCapacity = Integer.parseInt(scanner.nextLine().trim());
+		                validHallCapacity = true;
+		            } catch (NumberFormatException e) {
+		                System.out.println("Invalid input for capacity. Please enter a valid integer.");
+		                printAdminMenu();
+		                return;
+		            }
+		        }
 			
 			Course course = new Course(code, name, credit, group, lecturerName, lectureId,lecturetime,hallName, hallCapacity);
 			
 			courseDB.addCourse(course);
 			}
+	
 			
-			
-			}catch(Exception e) {
-				System.out.println("ENTER THE INPUT CORRECTLY ");
-				scanner.nextLine();
-				printAdminMenu();
-				
-				
-			}
-		}
+		
 
 	
 
